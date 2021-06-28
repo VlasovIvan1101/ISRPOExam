@@ -23,7 +23,7 @@ namespace Экзамен_ИСРПО__5_вар_
     /// </summary>
     public partial class MainWindow : Window
     {
-        // Объявляем базу данных 
+        // Объявляем БД 
         ISRPOexamEntities db = new ISRPOexamEntities();
         Employees employees;
 
@@ -38,7 +38,7 @@ namespace Экзамен_ИСРПО__5_вар_
         {
             InitializeComponent();
             this.employees = employees;
-            
+            // Объявляем наши textbox и связываем с БД
             TBFirtName.Text = this.employees.FirtName.ToString();
             TBSecondName.Text = this.employees.SecondName.ToString();
             TBMiddleName.Text = this.employees.MiddleName.ToString();
@@ -49,15 +49,16 @@ namespace Экзамен_ИСРПО__5_вар_
 
 
 
-
+        // Кнопка "Подтвердить"
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
             
-
+            //Условия сохранения 
             if (employees.IDEmployee == 0)
             {
                 Employees dishes = new Employees()
-                {
+                {   
+                //Конвертирование 
                     FirtName = Convert.ToString(TBFirtName.Text),
                     SecondName = Convert.ToString(TBSecondName.Text),
                     MiddleName = Convert.ToString(TBMiddleName.Text),
@@ -65,8 +66,10 @@ namespace Экзамен_ИСРПО__5_вар_
 
                 };
                 
+                //Добавление данных в БД и сохранение данных
                 db.Employees.Add(employees);
                 db.SaveChanges();
+                
                 MessageBox.Show("Сотрудник успешно добавлен");
 
             }
